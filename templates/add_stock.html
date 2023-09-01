@@ -1,0 +1,113 @@
+{% extends 'base2.html'%} {%block title %}Add Stock{%endblock%}
+{%block css %}
+.btn:hover{
+background: transparent;
+border: 2px solid #f9004d;
+cursor: pointer;
+}
+
+#daba:hover{
+color: red;
+cursor: pointer;
+}
+.resultrow {
+display: flex;
+padding:20px;
+{% comment %} margin-left:-5px;
+margin-right:-5px; {% endcomment %}
+}
+
+.resultcolumn {
+    flex: 50%;
+    {% comment %} padding: 5px; {% endcomment %}
+}
+
+{%endblock%}
+{%block body %}
+<br>
+<h2 style="color: yellow; text-align:center;">Add Stocks</h2>
+<br>
+
+<form action="{% url 'add_stock' %}" class="form-inline  my-2 my-lg-0" method="POST"
+    style=" text-align:center; width:400px; margin-left:500px;">
+    <!--CSRF:Cross Site Request Forgery-->
+    {% csrf_token %}
+    <input class="form-control mr-sm-1" type="search" placeholder="Add Ticker to Portfolio" aria-label="Search"
+        name="ticker" width="10px"><br>
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Add Stock</button>
+</form>
+<br>
+
+
+
+<div class="resultrow">
+    <div class="resultcolumn">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="background:black;color:yellow; width:300px;">
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Current Price</th>
+                    <th scope="col">Day High</th>
+                    <th scope="col">Day Low</th>
+                    <th scope="col">Previous Close</th>
+                    <th scope="col">% Change</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td>
+                      {% for i in companyName %}
+                      <p style="color:white;"><strong>{{ i }}</strong></p>
+                      {% endfor %}
+                    </td>
+                    <td>
+                      {% for i in lastPrice %}
+                      <p style="color:white;"><strong>{{ i }}</strong></p>
+                      {% endfor %}
+                    </td>
+                    <td>
+                        {% for i in dayHigh %}
+                        <p style="color:white;"><strong>{{ i }}</strong></p>
+                        {% endfor %}
+                      </td>
+                      
+                      <td>
+                        {% for i in dayLow %}
+                        <p style="color:white;"><strong>{{ i }}</strong></p>
+                        {% endfor %}
+                      </td>
+                      
+                      <td>
+                        {% for i in previousClose %}
+                        <p style="color:white;"><strong>{{ i }}</strong></p>
+                        {% endfor %}
+                      </td>
+                      
+                      <td>
+                        {% for i in pChange %}
+                        <p style="color:white;"><strong>{{ i }}</strong></p>
+                        {% endfor %}
+                      </td>
+                      
+                      <td>
+                        {% for i in change %}
+                        <p style="color:white;"><strong>{{ i }}</strong></p>
+                        {% endfor %}
+                      </td>
+                      
+                      <td style="color:white;">
+                        {% for i in data %}
+                        <p style="color:white;"><a href="{% url 'delete' i.id %}" id="daba">Delete Stock</a></p>
+                        {% endfor %}
+                      </td>
+                      
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+
+</div>
+{% endblock %}

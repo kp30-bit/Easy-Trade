@@ -1,0 +1,84 @@
+{% extends 'base2.html'%} {%block title %}Add Stock{%endblock%}
+{%block css %}
+
+.btn:hover{
+background: transparent;
+border: 2px solid #f9004d;
+cursor: pointer;
+}
+
+}
+#daba:hover{
+color: red;
+cursor: pointer;
+}
+
+.resultrow {
+display: flex;
+padding:20px;
+{% comment %} margin-left:-5px;
+margin-right:-5px; {% endcomment %}
+}
+
+.resultcolumn {
+    flex: 50%;
+    {% comment %} padding: 5px; {% endcomment %}
+  }
+
+{%endblock%}
+{%block body %}
+<br>
+<h2 style="color: yellow; text-align:center;">Sell Stocks</h2>
+<br>
+
+
+<div class="resultrow">
+    <div class="resultcolumn">
+        <table class="table table-bordered" style="color:white;">
+            <thead>
+                <tr>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Buy Price</th>
+                    <th scope="col">Invested</th>
+                    <th scope="col">Sell</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    
+                    <th scope="row" style="color:white;">
+                        {% for item in data %}
+                        <p><strong>{{ item.ticker }}</strong></p>
+                        {% endfor %}
+                    </th>
+                    <td>
+                        {% for item in data %}
+                        <p>{{ item.quantity }}</p>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for item in data %}
+                        <p>{{ item.buyPrice }}</p>
+                        {% endfor %}
+                    </td>
+                    
+                        <td>
+                            {% for item in bpintoquan %}
+                            <p>₹ {{ item|floatformat:2 }}</p>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for item in data %}
+                            <p style="color:white;"><a href="/sell/{{item.ticker}}">Sell</a></p>
+                            {% endfor %}
+                        </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
